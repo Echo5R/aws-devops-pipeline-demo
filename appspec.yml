@@ -1,9 +1,6 @@
 version: 0.0
 Resources:
-  - myLambda:
+  - LambdaFunction:
       Type: AWS::Lambda::Function
       Properties:
         Name: pipeline-demo
-        Alias: live
-        CurrentVersion: 1
-        TargetVersion: 2

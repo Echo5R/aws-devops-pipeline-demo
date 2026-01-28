@@ -4,6 +4,8 @@ phases:
   build:
     commands:
       - zip function.zip app/lambda.py
+
 artifacts:
   files:
     - function.zip
+    - appspec.yml
