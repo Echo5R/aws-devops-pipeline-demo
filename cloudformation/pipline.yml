@@ -17,6 +17,15 @@ Resources:
             Action: sts:AssumeRole
       ManagedPolicyArns:
         - arn:aws:iam::aws:policy/AWSCodePipelineFullAccess
+      Policies:
+      - PolicyName: AllowGitHubSecret
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - secretsmanager:GetSecretValue
+              Resource: arn:aws:secretsmanager:*:*:secret:pipeline-demo*
 
   BuildRole:
     Type: AWS::IAM::Role
@@ -117,9 +126,9 @@ Resources:
                 - Name: SourceOutput
               Configuration:
                 Owner: echo5r
-                Repo: your-repo
-                Branch: main
-                OAuthToken: YOUR_TOKEN
+                Repo: https://github.com/Echo5R/aws-devops-pipeline-demo.git
+                Branch: master
+                OAuthToken: "{{resolve:secretsmanager:pipeline-demo:SecretString}}"
 
         - Name: Build
           Actions:
